@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -22,15 +23,19 @@ public class UserAccount {
     @Column(name = "is_disabled")
     private Boolean isDisabled;
 
+    @Column(unique = true,nullable = false)
+    private String uuid;
+
     @Column(name = "create_at")
-    private Timestamp createAccount;
+    private LocalDateTime createAccount;
 
     @Column(name = "updated_at")
-    private Timestamp updatedAccount;
+    private LocalDateTime  updatedAccount;
 
     @ManyToOne
-    private Account accounts;
+    private Account account;
 
     @ManyToOne
     private User user;
+
 }

@@ -40,14 +40,7 @@ public class AccountServiceImpl implements AccountService{
     public EntityModel<?> crateNewAccount(CreateAccountDto createAccountDto) {
 
         Account account = accountMapper.createAccountDtoToAccount(createAccountDto);
-
-        account.setAccountName(createAccountDto.accountName());
-        account.setAccountNo(createAccountDto.accountNo());
-        account.setPin(createAccountDto.pin());
-        account.setTransferLimit(createAccountDto.transferLimit());
-        account.setUuid(createAccountDto.uuid());
         account.setUuid(UUID.randomUUID().toString());
-        account.setAccountTypes(createAccountDto.accountType());
         accountRepository.save(account);
 
         return accountModelAssembler.toModel(account);

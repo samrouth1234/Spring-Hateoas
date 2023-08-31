@@ -1,5 +1,6 @@
 package com.cstad.api.user;
 
+import com.cstad.api.account.Account;
 import com.cstad.api.user.web.CreateUserDto;
 import com.cstad.api.user.web.UpdateUserDto;
 import org.springframework.hateoas.CollectionModel;
@@ -13,9 +14,8 @@ public interface UserService {
 
     EntityModel<?> findByUuid(String uuid);
 
-    EntityModel <?> createNew (CreateUserDto createUserDto);
 
-    void createUserRoles(Integer userId, List<Integer> roleIds);
+    EntityModel <?> createNew (CreateUserDto createUserDto);
 
 
     void deleteByUuid(String uuid);
@@ -23,6 +23,10 @@ public interface UserService {
     String disableByUuid (String uuid);
 
     EntityModel<?> updateByUuid(String uuid, UpdateUserDto updateUserDto);
+
+    List<Account> getUserAccounts(String uuid);
+
+
 
 
 }

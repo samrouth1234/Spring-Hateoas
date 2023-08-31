@@ -5,7 +5,9 @@ import com.cstad.api.user_account.UserAccount;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Getter
 @Setter
@@ -21,13 +23,13 @@ public class Account {
     private Long id;
 
     @Column(name = "transfer_limit")
-    private Integer transferLimit;
+    private BigDecimal transferLimit;
 
     @Column(name = "act_name")
     private String accountName;
 
     @Column(name = "act_no")
-    private String accountNo ;
+    private String accountNumber ;
 
     @Column(name = "pin")
     private String pin;
@@ -35,11 +37,11 @@ public class Account {
     @Column(unique = true,nullable = false)
     private String uuid;
 
+    private BigDecimal balance;
+
     private Boolean status;
 
     @ManyToOne
     private AccountType accountTypes;
 
-    @OneToMany(mappedBy = "accounts")
-    private List<UserAccount> userAccount;
 }

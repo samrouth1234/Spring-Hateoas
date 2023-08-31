@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "account-types")
+@Table(name = "account_types")
 public class AccountType {
 
     @Id
@@ -21,9 +21,6 @@ public class AccountType {
 
     @Column(name = "name")
     private String name;
-
-    @OneToMany(mappedBy = "accountTypes")
-    private List <Account> account;
 
 
 }

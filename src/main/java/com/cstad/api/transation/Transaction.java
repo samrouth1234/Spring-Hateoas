@@ -4,6 +4,7 @@ import com.cstad.api.account.Account;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Getter
@@ -21,7 +22,7 @@ public class Transaction {
     private Long id;
 
     @Column(name = "amount")
-    private Integer amount ;
+    private BigDecimal amount ;
 
     @Column(name = "remark")
     private String remark;

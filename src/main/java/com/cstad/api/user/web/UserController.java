@@ -1,12 +1,16 @@
 package com.cstad.api.user.web;
 
+import com.cstad.api.account.Account;
 import com.cstad.api.user.User;
 import com.cstad.api.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -43,6 +47,13 @@ public class UserController {
     public void disableByUuid( @PathVariable String uuid){
          userService.disableByUuid(uuid);
     }
+
+    @GetMapping("/{uuid}/accounts")
+    public ResponseEntity<List<Account>> getUserAccounts(@PathVariable String uuid) {
+        List<Account> accounts = userService.getUserAccounts(uuid);
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
+    }
+
 
 
 }

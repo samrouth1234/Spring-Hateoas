@@ -10,8 +10,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findByUuid(String uuid);
 
-    boolean existsByUuid(String uuid);
-
     @Modifying
     @Query("DELETE FROM User u WHERE u.uuid = :uuid")
     void deleteByUuid(String uuid);

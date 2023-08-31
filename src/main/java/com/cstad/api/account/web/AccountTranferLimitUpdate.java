@@ -1,4 +1,6 @@
 package com.cstad.api.account.web;
 
-public record AccountTranferLimitUpdate(Integer transferLimit) {
+import java.math.BigDecimal;
+
+public record AccountTranferLimitUpdate(BigDecimal transferLimit) {
 }
