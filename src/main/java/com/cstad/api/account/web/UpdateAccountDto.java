@@ -7,5 +7,5 @@ public record UpdateAccountDto(String accountName,
                                String pin,
                                Integer transferLimit,
                                String uuid,
-                               AccountType accountType) {
+                               Boolean status) {
 }

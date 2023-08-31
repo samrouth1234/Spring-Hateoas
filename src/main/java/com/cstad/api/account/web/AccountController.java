@@ -1,6 +1,5 @@
 package com.cstad.api.account.web;
 
-import com.cstad.api.account.AccountRepository;
 import com.cstad.api.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
@@ -22,11 +21,22 @@ public class AccountController {
     }
 
     @PostMapping
-    public EntityModel<?> createNewAccount (CreateAccountDto createAccountDto){
+    public EntityModel<?> createNewAccount (@RequestBody CreateAccountDto createAccountDto){
         return accountService.crateNewAccount(createAccountDto);
     }
     @PutMapping("/{uuid}/closes")
     public void closeByUuid( @PathVariable String uuid){
         accountService.closeByUuid(uuid);
     }
+
+    @PostMapping("/{uuid}/renames")
+    public EntityModel<?> createAccountRename(@PathVariable String uuid,@RequestBody AccountRenameDto accountRenameDto){
+        return accountService.createAccountRename(uuid,accountRenameDto);
+    }
+
+    @PostMapping("/{uuid}/limit-transfers")
+    public EntityModel<?> createAccountUpdateTransfer(@PathVariable String uuid,@RequestBody AccountTranferLimitUpdate accountTranferLimitUpdate){
+        return accountService.createAccountUpdateTransfer (uuid,accountTranferLimitUpdate);
+    }
+
 }

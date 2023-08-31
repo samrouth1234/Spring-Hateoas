@@ -1,6 +1,8 @@
 package com.cstad.api.account;
 
 import com.cstad.api.account.web.AccountDto;
+import com.cstad.api.account.web.AccountRenameDto;
+import com.cstad.api.account.web.AccountTranferLimitUpdate;
 import com.cstad.api.account.web.CreateAccountDto;
 import org.mapstruct.Mapper;
 
@@ -13,6 +15,10 @@ public interface AccountMapper {
 
     List<AccountDto> mapAccountToAccountList (List<Account>accounts);
 
-    Account createUserDtoToUser(CreateAccountDto createAccountDto);
+    Account createAccountDtoToAccount(CreateAccountDto createAccountDto);
+
+    Account createAccountRenameDtoToAccount(AccountRenameDto accountRenameDto);
+
+    Account createAccountUpdateTransferDtoToAccount(AccountTranferLimitUpdate accountTranferLimitUpdate);
 
 }

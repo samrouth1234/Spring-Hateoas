@@ -50,10 +50,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public EntityModel<?> createNew(CreateUserDto createUserDto) {
+        if (createUserDto == null) {
+            throw new IllegalArgumentException("createUserDto cannot be null");
+        }
+
         User user = userMapper.createUserDtoToUser(createUserDto);
+
+        // Set UUID
         user.setUuid(UUID.randomUUID().toString());
+        user.setName(createUserDto.name());
+        user.setGender(createUserDto.gender());
+        user.setStudentCardNo(createUserDto.studentCardNo());
+        // Set default values
         user.setIsDeleted(false);
         user.setIsVerified(true);
+
         userRepository.save(user);
         return userModelAssembler.toModel(user);
     }
@@ -82,11 +93,12 @@ public class UserServiceImpl implements UserService {
         if(optionalUser.isPresent()){
             User user = optionalUser.get();
             user.setName(updateUserDto.name());
-            user.setEmail(updateUserDto.email());
-            user.setPhoneNumber(updateUserDto.phoneNumber());
+            user.setGender(updateUserDto.gender());
+            user.setIsStudent(updateUserDto.isStudent());
+            user.setStudentCardNo(updateUserDto.studentCardNo());
             userRepository.save(user);
             return  userModelAssembler.toModel(user);
         }
-        throw new RuntimeException("user whit this uuid is not found ");
+        throw new RuntimeException("user with this uuid is not found ");
     }
 }

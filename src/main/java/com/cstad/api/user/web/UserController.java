@@ -23,9 +23,9 @@ public class UserController {
     public EntityModel<?> getUser(@PathVariable String uuid){
         return userService.findByUuid(uuid);
     }
-
+    // @RequestBody take data when create
     @PostMapping
-    public EntityModel<?> createNewUser(CreateUserDto createUserDto){
+    public EntityModel<?> createNewUser(@RequestBody CreateUserDto createUserDto){
         return userService.createNew(createUserDto);
     }
 
@@ -33,9 +33,9 @@ public class UserController {
     public void deleteByUuid(@PathVariable String uuid) {
         userService.deleteByUuid(uuid);
     }
-
+    // @RequestBody take data when update
     @PutMapping("/{uuid}")
-    public EntityModel<?> updateUserByUUID (@PathVariable String uuid ,UpdateUserDto updateUserDto){
+    public EntityModel<?> updateUserByUUID (@PathVariable  String uuid ,@RequestBody UpdateUserDto updateUserDto){
         return userService.updateByUuid(uuid,updateUserDto);
     }
 

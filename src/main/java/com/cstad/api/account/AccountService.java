@@ -1,5 +1,7 @@
 package com.cstad.api.account;
 
+import com.cstad.api.account.web.AccountRenameDto;
+import com.cstad.api.account.web.AccountTranferLimitUpdate;
 import com.cstad.api.account.web.CreateAccountDto;
 import com.cstad.api.account.web.UpdateAccountDto;
 import com.cstad.api.user.web.UpdateUserDto;
@@ -13,4 +15,8 @@ public interface AccountService {
     EntityModel<?> crateNewAccount(CreateAccountDto createAccountDto);
 
     String closeByUuid (String uuid);
+
+    EntityModel<?> createAccountRename(String uuid,AccountRenameDto accountRenameDto);
+
+    EntityModel<?> createAccountUpdateTransfer(String uuid, AccountTranferLimitUpdate accountTranferLimitUpdate);
 }

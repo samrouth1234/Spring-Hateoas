@@ -7,12 +7,6 @@ public record CreateUserDto(
 
                             String gender,
 
-                            String email,
-
-                            String password,
-
-                            String phoneNumber,
-
                             Boolean isStudent,
                             String studentCardNo,
 

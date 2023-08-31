@@ -1,9 +1,10 @@
 package com.cstad.api.account;
 
 import com.cstad.api.account.web.AccountModelAssembler;
+import com.cstad.api.account.web.AccountRenameDto;
+import com.cstad.api.account.web.AccountTranferLimitUpdate;
 import com.cstad.api.account.web.CreateAccountDto;
-import com.cstad.api.account.web.UpdateAccountDto;
-import com.cstad.api.user.User;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
@@ -38,7 +39,7 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public EntityModel<?> crateNewAccount(CreateAccountDto createAccountDto) {
 
-        Account account = accountMapper.createUserDtoToUser(createAccountDto);
+        Account account = accountMapper.createAccountDtoToAccount(createAccountDto);
 
         account.setAccountName(createAccountDto.accountName());
         account.setAccountNo(createAccountDto.accountNo());
@@ -46,7 +47,7 @@ public class AccountServiceImpl implements AccountService{
         account.setTransferLimit(createAccountDto.transferLimit());
         account.setUuid(createAccountDto.uuid());
         account.setUuid(UUID.randomUUID().toString());
-
+        account.setAccountTypes(createAccountDto.accountType());
         accountRepository.save(account);
 
         return accountModelAssembler.toModel(account);
@@ -58,11 +59,37 @@ public class AccountServiceImpl implements AccountService{
         Optional<Account> optionalUser = accountRepository.findByUuid(uuid);
         if (optionalUser.isPresent()) {
             Account account = optionalUser.get();
-            account.setAccountNo(account.getAccountNo());
+            account.setStatus(false);
             accountRepository.save(account);
-            return "User UUID :" + uuid + "is now disable";
+            return "Account UUID :" + uuid + "is now disable";
         } else {
             return "Account with UUID: " + uuid + " not found";
         }
     }
+
+    @Override
+    public EntityModel<?> createAccountRename(String uuid, AccountRenameDto accountRenameDto) {
+        Optional<Account> optionalAccount = accountRepository.findByUuid(uuid);
+        if (optionalAccount.isPresent()){
+            Account account = optionalAccount.get();
+            account.setAccountName(accountRenameDto.accountName());
+            accountRepository.save(account);
+            return  accountModelAssembler.toModel(account);
+        }
+        throw new RuntimeException("Account with this uuid is not found ");
+    }
+
+    @Override
+    public EntityModel<?> createAccountUpdateTransfer(String uuid, AccountTranferLimitUpdate accountTranferLimitUpdate) {
+        Optional<Account> optionalAccount = accountRepository.findByUuid(uuid);
+        if (optionalAccount.isPresent()){
+            Account account = optionalAccount.get();
+            account.setTransferLimit(accountTranferLimitUpdate.transferLimit());
+            accountRepository.save(account);
+            return  accountModelAssembler.toModel(account);
+        }
+        throw new RuntimeException("Account with this uuid is not found ");
+    }
+
+
 }

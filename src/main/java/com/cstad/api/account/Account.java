@@ -35,6 +35,8 @@ public class Account {
     @Column(unique = true,nullable = false)
     private String uuid;
 
+    private Boolean status;
+
     @ManyToOne
     private AccountType accountTypes;
 

@@ -13,6 +13,7 @@ import java.util.UUID;
 
 @Component
 public class DataInitialization {
+    /*
     @Autowired
     private UserRepository userRepository;
 
@@ -61,7 +62,8 @@ public class DataInitialization {
                 .build();
         accountTypeRepository.saveAll(List.of(accountType,accountType1,accountType2));
 
-
     }
+
+     */
 
 }
